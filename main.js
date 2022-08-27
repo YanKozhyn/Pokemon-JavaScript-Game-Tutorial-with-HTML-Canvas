@@ -9,6 +9,11 @@ for (let i = 0; i < collisions.length; i += 70) {
   collisionsMap.push(collisions.slice(i, i + 70));
 }
 
+const battleZonesMap = [];
+for (let i = 0; i < battleZonesData.length; i += 70) {
+  battleZonesMap.push(battleZonesData.slice(i, i + 70));
+}
+
 const boundaries = [];
 const offset = {
   x: -750,
@@ -19,6 +24,22 @@ collisionsMap.forEach((row, i) => {
   row.forEach((symbol, j) => {
     if (symbol === 1025)
       boundaries.push(
+        new Boundary({
+          position: {
+            x: j * Boundary.width + offset.x,
+            y: i * Boundary.height + offset.y,
+          },
+        })
+      );
+  });
+});
+
+const battleZones = [];
+
+battleZonesMap.forEach((row, i) => {
+  row.forEach((symbol, j) => {
+    if (symbol === 1025)
+      battleZones.push(
         new Boundary({
           position: {
             x: j * Boundary.width + offset.x,
@@ -94,7 +115,7 @@ const keys = {
     pressed: false,
   },
 };
-const movables = [background, ...boundaries, foreground];
+const movables = [background, ...boundaries, foreground, ...battleZones];
 
 function rectangularCollision({ rectangle1, rectangle2 }) {
   return (
@@ -111,8 +132,40 @@ function animate() {
   boundaries.forEach((boundary) => {
     boundary.draw();
   });
+
+  battleZones.forEach((battleZones) => {
+    battleZones.draw();
+  });
   player.draw();
   foreground.draw();
+
+  if (keys.w.pressed || keys.a.pressed || keys.s.pressed || keys.d.pressed) {
+    for (let i = 0; i < battleZones.length; i++) {
+      const battleZone = battleZones[i];
+      const overlappingArea =
+        (Math.min(
+          player.position.x + player.width,
+          battleZone.position.x + battleZone.width
+        ) -
+          Math.max(player.position.x, battleZone.position.x)) *
+        (Math.min(
+          player.position.y + player.height,
+          battleZone.position.y + battleZone.height
+        ) -
+          Math.min(player.position.y, battleZone.position.y));
+      if (
+        rectangularCollision({
+          rectangle1: player,
+          rectangle2: battleZone,
+        }) &&
+        overlappingArea > (player.width * player.height) / 2 &&
+        Math.random() < 0.01
+      ) {
+        console.log('naxui idi');
+        break;
+      }
+    }
+  }
 
   let moving = true;
   player.moving = false;
@@ -137,6 +190,7 @@ function animate() {
         break;
       }
     }
+
     if (moving)
       movables.forEach((movable) => {
         movable.position.y += 3;
