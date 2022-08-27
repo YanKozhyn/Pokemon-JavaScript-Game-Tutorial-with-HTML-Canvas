@@ -7,3 +7,9 @@ canvas.height = 576;
 ctx.fillStyle = 'white';
 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+const image = new Image();
+image.src = './assets/Images/Pellet Town.png';
+
+image.onload = () => {
+  ctx.drawImage(image, -700, -550);
+};
