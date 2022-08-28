@@ -49,6 +49,12 @@ document.querySelectorAll('button').forEach((button) => {
       });
     });
   });
+
+  button.addEventListener('mouseenter', (e) => {
+    const selectedAttack = attacks[e.currentTarget.innerHTML];
+    AttackType.innerHTML = selectedAttack.type;
+    AttackType.style.color = selectedAttack.color;
+  });
 });
 
 dialogueBox.addEventListener('click', (e) => {
