@@ -51,7 +51,18 @@ button:hover {
   margin-top: 10px;
 }
 
-#hpbar2 {
+#enemyHealthBar {
+  height: 5px;
+  background-color: green;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  right: 0;
+
+}
+
+#playerHealthBar {
   height: 5px;
   background-color: green;
   position: absolute;
