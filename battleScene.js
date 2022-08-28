@@ -7,41 +7,15 @@ const battleBackground = new Sprite({
   },
   image: battleBackgroundImage,
 });
-
-const draggleImage = new Image();
-draggleImage.src = 'assets/Images/draggleSprite.png';
-const draggle = new Sprite({
-  position: {
-    x: 800,
-    y: 100,
-  },
-  image: draggleImage,
-  frames: {
-    max: 4,
-    hold: 30,
-  },
-  animate: true,
-  isEnemy: true,
-  name: 'Draggle',
-});
-
-const embyImage = new Image();
-embyImage.src = 'assets/Images/embySprite.png';
-const emby = new Sprite({
-  position: {
-    x: 280,
-    y: 330,
-  },
-  image: embyImage,
-  frames: {
-    max: 4,
-    hold: 30,
-  },
-  animate: true,
-  name: 'Emby',
-});
-
+const draggle = new Monster(monsters.Draggle);
+const emby = new Monster(monsters.Emby);
 const renderSprites = [draggle, emby];
+
+emby.attacks.forEach((attack) => {
+  const button = document.createElement('button');
+  button.innerHTML = attack.name;
+  AttackBox.append(button);
+});
 
 function animateBattle() {
   window.requestAnimationFrame(animateBattle);
@@ -72,17 +46,17 @@ document.querySelectorAll('button').forEach((button) => {
     });
 
     queue.push(() => {
-        draggle.attack({
-          attack: attacks.Fireball,
-          recipient: emby,
-          renderSprites,
-        });
+      draggle.attack({
+        attack: attacks.Fireball,
+        recipient: emby,
+        renderSprites,
       });
+    });
   });
 });
 
 dialogueBox.addEventListener('click', (e) => {
-  if ((queue.length > 0)) {
+  if (queue.length > 0) {
     queue[0]();
     queue.shift();
   } else e.currentTarget.style.display = 'none';

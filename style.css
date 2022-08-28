@@ -103,10 +103,9 @@ button:hover {
   padding: 12px;
   display: none;
   cursor: pointer;
-
 }
 
-#Attack {
+#AttackBox {
   width: 66.66%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
