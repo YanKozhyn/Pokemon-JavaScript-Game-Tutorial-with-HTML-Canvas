@@ -38,6 +38,13 @@ document.querySelectorAll('button').forEach((button) => {
       renderSprites,
     });
 
+    if (draggle.health <= 0) {
+      queue.push(() => {
+        draggle.faint();
+      });
+    }
+
+    //draggle or enemy attacks right here
     const randomAttack =
       draggle.attacks[Math.floor(Math.random() * draggle.attacks.length)];
 
@@ -47,6 +54,11 @@ document.querySelectorAll('button').forEach((button) => {
         recipient: emby,
         renderSprites,
       });
+      if (emby.health <= 0) {
+        queue.push(() => {
+          emby.faint();
+        });
+      }
     });
   });
 
