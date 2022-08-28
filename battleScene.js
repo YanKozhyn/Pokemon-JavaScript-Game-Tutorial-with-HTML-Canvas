@@ -37,17 +37,13 @@ document.querySelectorAll('button').forEach((button) => {
       recipient: draggle,
       renderSprites,
     });
-    queue.push(() => {
-      draggle.attack({
-        attack: attacks.Tackle,
-        recipient: emby,
-        renderSprites,
-      });
-    });
+
+    const randomAttack =
+      draggle.attacks[Math.floor(Math.random() * draggle.attacks.length)];
 
     queue.push(() => {
       draggle.attack({
-        attack: attacks.Fireball,
+        attack: randomAttack,
         recipient: emby,
         renderSprites,
       });
