@@ -57,6 +57,7 @@ function initBattle() {
               });
 
               battle.initiated = false;
+              audio.Map.play();
             },
           });
         });
@@ -90,6 +91,7 @@ function initBattle() {
                 });
 
                 battle.initiated = false;
+                audio.Map.play();
               },
             });
           });
@@ -113,8 +115,9 @@ function animateBattle() {
   });
 }
 
-initBattle();
-animateBattle();
+animate();
+// initBattle();
+// animateBattle();
 
 dialogueBox.addEventListener('click', (e) => {
   if (queue.length > 0) {
