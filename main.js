@@ -204,7 +204,7 @@ function animate() {
     }
   }
 
-  if (keys.w.pressed && lastKey === 'w') {
+  if ((keys.w.pressed && lastKey === 'w') || lastKey === 'ц') {
     player.animate = true;
     player.image = player.sprites.up;
     for (let i = 0; i < boundaries.length; i++) {
@@ -230,7 +230,7 @@ function animate() {
       movables.forEach((movable) => {
         movable.position.y += 3;
       });
-  } else if (keys.a.pressed && lastKey === 'a') {
+  } else if ((keys.a.pressed && lastKey === 'a') || lastKey === 'ф') {
     player.animate = true;
     player.image = player.sprites.left;
     for (let i = 0; i < boundaries.length; i++) {
@@ -255,7 +255,11 @@ function animate() {
       movables.forEach((movable) => {
         movable.position.x += 3;
       });
-  } else if (keys.s.pressed && lastKey === 's') {
+  } else if (
+    (keys.s.pressed && lastKey === 's') ||
+    lastKey === 'ы' ||
+    lastKey === 'і'
+  ) {
     player.animate = true;
     player.image = player.sprites.down;
     for (let i = 0; i < boundaries.length; i++) {
@@ -280,7 +284,7 @@ function animate() {
       movables.forEach((movable) => {
         movable.position.y -= 3;
       });
-  } else if (keys.d.pressed && lastKey === 'd') {
+  } else if ((keys.d.pressed && lastKey === 'd') || lastKey === 'в') {
     player.animate = true;
     player.image = player.sprites.right;
     for (let i = 0; i < boundaries.length; i++) {
@@ -312,18 +316,23 @@ let lastKey = '';
 window.addEventListener('keydown', (e) => {
   switch (e.key) {
     case 'w':
+    case 'ц':
       keys.w.pressed = true;
       lastKey = 'w';
       break;
     case 'a':
+    case 'ф':
       keys.a.pressed = true;
       lastKey = 'a';
       break;
     case 's':
+    case 'і':
+    case 'ы':
       keys.s.pressed = true;
       lastKey = 's';
       break;
     case 'd':
+    case 'в':
       keys.d.pressed = true;
       lastKey = 'd';
       break;
@@ -332,15 +341,20 @@ window.addEventListener('keydown', (e) => {
 window.addEventListener('keyup', (e) => {
   switch (e.key) {
     case 'w':
+    case 'ц':
       keys.w.pressed = false;
       break;
     case 'a':
+    case 'ф':
       keys.a.pressed = false;
       break;
     case 's':
+    case 'і':
+    case 'ы':
       keys.s.pressed = false;
       break;
     case 'd':
+    case 'в':
       keys.d.pressed = false;
       break;
   }
